@@ -2,6 +2,7 @@
 <html>
 
 <head>
+    <meta charset="utf-8"/>
     <title></title>
 </head>
 
@@ -18,22 +19,36 @@
         <option value="content">Organiser par contenu</option>
     </select>
 
-    <div
-        ng-init="users=[{username:'Marc', content: 'Salut les gens'}, {username:'Jean', content:'Je suis content'}, {username:'John', content:'First'}]">
-        <div>
-            <div ng-repeat="user in users | filter:{content:query} | orderBy:order">
-                <p>
-                        <strong>{{user.username | uppercase }}</strong><br>
-                        {{user.content}}
-                </p>
+    <div ng-controller="CommentsCtrl">
+        <div ng-repeat="comment in comments | filter:{content: query} | orderBy:order">
+            <p>
+                <strong>{{comment.username}}</strong><br>
+                {{comment.content}}
+            </p>
         </div>
-        {{users.username | filter:'M'}}
     </div>
 
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.14/angular.min.js"></script>
+    <script>
 
-    {{task}}
-
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.9/angular.min.js"></script>
+        function CommentsCtrl($scope){
+            console.log($scope);
+            $scope.comments = [
+                {
+                    "username": "Dillon",
+                    "city": "Nile",
+                    "email": "dillonwelch@furnigeer.com",
+                    "content": "elit sint excepteur pariatur volupt"
+                },
+                {
+                    "username": "Olivia",
+                    "city": "Utting",
+                    "email": "oliviawelch@furnigeer.com",
+                    "content": "anim exerciatation laboris aliqua ad"
+                }
+            ];
+        }
+    </script>
 </body>
 
 </html>
