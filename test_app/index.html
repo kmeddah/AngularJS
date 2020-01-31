@@ -2,38 +2,61 @@
 <html>
 
 <head>
+    <meta charset="utf-8" />
     <title></title>
 </head>
 
-<body ng-app>
+<body ng-app="MonApp">
 
     <!-- <input type="text" ng-model="nbre1"/>
         <input type="text" ng-model="nbre2"/>
 
         {{ "Somme :  " + (nbre1 * 1 + nbre2 * 1) }} -->
 
-    <input type="text" ng-model="query" />
-    <select ng-model="order">
-        <option value="username">Organiser par nom</option>
-        <option value="content">Organiser par contenu</option>
-    </select>
+    <div ng-controller="CommentsCtrl" ng-init="query='elit'">
+        <input type="text" ng-model="query" />
+        {{query}}
+        <select ng-model="order">
+            <option value="username">Organiser par nom</option>
+            <option value="content">Organiser par contenu</option>
+        </select>
 
-    <div
-        ng-init="users=[{username:'Marc', content: 'Salut les gens'}, {username:'Jean', content:'Je suis content'}, {username:'John', content:'First'}]">
-        <div>
-            <div ng-repeat="user in users | filter:{content:query} | orderBy:order">
-                <p>
-                        <strong>{{user.username | uppercase }}</strong><br>
-                        {{user.content}}
-                </p>
+        <div ng-repeat="comment in comments | filter:{content: query} | orderBy:order">
+            <p>
+                <strong>{{comment.username}}</strong><br>
+                {{comment.content}}
+            </p>
+            <input type="text" ng-model="query" />
         </div>
-        {{users.username | filter:'M'}}
     </div>
 
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.14/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.14/angular-animate.min.js"></script>
 
-    {{task}}
+    <script>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.9/angular.min.js"></script>
+        var app = angular.module('MonApp', ['ngAnimate']);
+        app.config(['$routeProvider', function($routeProvider){
+            
+        }]);
+        app.controller('CommentsCtrl', function ($scope) {
+            // console.log($scope);
+            $scope.comments = [
+                {
+                    "username": "Dillon",
+                    "city": "Nile",
+                    "email": "dillonwelch@furnigeer.com",
+                    "content": "elit sint excepteur pariatur volupt"
+                },
+                {
+                    "username": "Olivia",
+                    "city": "Utting",
+                    "email": "oliviawelch@furnigeer.com",
+                    "content": "anim exerciatation laboris aliqua ad"
+                }
+            ];
+        });
+    </script>
 </body>
 
 </html>
