@@ -13,31 +13,24 @@
 
         {{ "Somme :  " + (nbre1 * 1 + nbre2 * 1) }} -->
 
-    <div ng-controller="CommentsCtrl" ng-init="query='elit'">
-        <input type="text" ng-model="query" />
-        {{query}}
-        <select ng-model="order">
-            <option value="username">Organiser par nom</option>
-            <option value="content">Organiser par contenu</option>
-        </select>
-
-        <div ng-repeat="comment in comments | filter:{content: query} | orderBy:order">
-            <p>
-                <strong>{{comment.username}}</strong><br>
-                {{comment.content}}
-            </p>
-            <input type="text" ng-model="query" />
-        </div>
-    </div>
+    <div ng-view></div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.14/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.14/angular-animate.min.js"></script>
+    <script src="https://code.angularjs.org/1.2.14/angular-route.min.js"></script>
 
     <script>
 
-        var app = angular.module('MonApp', ['ngAnimate']);
-        app.config(['$routeProvider', function($routeProvider){
-            
+        var app = angular.module('MonApp', ['ngRoute']);
+        app.config(['$routeProvider', function ($routeProvider) {
+            $routeProvider
+                .when('/', { templateUrl: 'partials/home.html' })
+                .when('/comments', {
+                    templateUrl: 'partials/comments.html',
+                    controller: 'CommentsCtrl'
+                })
+                .otherwise({ redirectTo: '/' })
+
         }]);
         app.controller('CommentsCtrl', function ($scope) {
             // console.log($scope);
