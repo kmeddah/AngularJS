@@ -174,20 +174,26 @@
               factory.posts = data;
               $timeout(function () {
                 deffered.resolve(factory.posts);
-              }, 4000)
+              }, 2000)
             }).error(function (data, status) {
               deffered.reject('Impossible de récupérer les articles.');
             });
           return deffered.promise;
         },
         getPost: function (id) {
+          var deffered = $q.defer();
           var post = {};
-          angular.forEach(factory.posts, function (value, key) {
-            if (value.id == id) {
-              post = value;
-            }
+          var posts = factory.getPosts().then(function (posts) {
+            angular.forEach(factory.posts, function (value, key) {
+              if (value.id == id) {
+                post = value;
+              }
+            });
+            deffered.resolve(post);
+          }, function (msg) {
+            deffered.reject(msg);
           });
-          return post;
+          return deffered.promise;
         }
       }
       return factory;
@@ -204,15 +210,17 @@
     });
 
     app.controller('CommentsCtrl', function ($scope, PostFactory, Post, $routeParams) {
-      var post = PostFactory.getPost($routeParams.id);
-      $scope.title = post.name;
-      $scope.comments = post.comments;
-
-      // var post = Post.getPost($routeParams.id);
-      // $scope.title = post.name;
-      // $scope.comments = post.comments;
+      $scope.loading = true;
+      var post = PostFactory.getPost($routeParams.id).then(function (post) {
+        $scope.loading = false;
+        $scope.title = post.name;
+        $scope.comments = post.comments;
+      }, function (msg) {
+        alert(msg);
+      })
     });
   </script>
 </body>
+
 
 </html>
