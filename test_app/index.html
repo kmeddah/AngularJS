@@ -2,38 +2,32 @@
 <html>
 
 <head>
-    <title></title>
+  <meta charset="utf-8" />
+  <title>Mon exemple angularJS</title>
+  <link rel="stylesheet" href="https://getbootstrap.com/1.4.0/assets/css/bootstrap.min.css">
 </head>
 
-<body ng-app>
+<body ng-app="MonApp">
 
-    <!-- <input type="text" ng-model="nbre1"/>
-        <input type="text" ng-model="nbre2"/>
+  <div ng-show="loading">Chargement...</div>
 
-        {{ "Somme :  " + (nbre1 * 1 + nbre2 * 1) }} -->
-
-    <input type="text" ng-model="query" />
-    <select ng-model="order">
-        <option value="username">Organiser par nom</option>
-        <option value="content">Organiser par contenu</option>
-    </select>
-
-    <div
-        ng-init="users=[{username:'Marc', content: 'Salut les gens'}, {username:'Jean', content:'Je suis content'}, {username:'John', content:'First'}]">
-        <div>
-            <div ng-repeat="user in users | filter:{content:query} | orderBy:order">
-                <p>
-                        <strong>{{user.username | uppercase }}</strong><br>
-                        {{user.content}}
-                </p>
-        </div>
-        {{users.username | filter:'M'}}
+  <div class="navbar navbar-default">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">AngularJS</a>
     </div>
+  </div>
 
+  <div class="container" ng-view></div>
 
-    {{task}}
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.14/angular.min.js">
+  </script>
+  <script src="https://code.angularjs.org/1.2.14/angular-route.min.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/service/post.js"></script>
+  <script src="js/controller/comments.js"></script>
+  <script src="js/controller/posts.js"></script>
+  <script src="js/directive/comment.js"></script>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.9/angular.min.js"></script>
 </body>
 
 </html>
